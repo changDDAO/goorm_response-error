@@ -9,6 +9,7 @@ import com.changddao.goorm_response_error.repository.UserRepository;
 import com.changddao.goorm_response_error.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +35,7 @@ public class ApiUserController {
                 log.info("grade is {}", results.getFieldValue("grade"));
                 throw new CreateException("학점을 잘못 입력하였습니다.",
                         new Throwable(results.getFieldValue("grade").toString()));
+
             }
         }
         User user = User.builder().username(userData.getUsername())
