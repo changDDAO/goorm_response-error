@@ -43,5 +43,24 @@ class UserServiceTest {
             //학점변경 완료
         }
     }
+    @Test
+    void SortingTest(){
+    //given
+        User user1 = new User("jina", 5);
+        User user2 = new User("changho", 3);
+        User user3 = new User("jaeson", 4);
+        User user4 = new User("junsu", 1);
+    //when
+        userService.joinUser(user1);
+        userService.joinUser(user2);
+        userService.joinUser(user3);
+        userService.joinUser(user4);
+        List<User> usersAsc = userService.findAllGradeASC();
+        //that
+        for (User user : usersAsc) {
+            System.out.println("user.getUsername() = " + user.getUsername());
+            System.out.println("user.getGrade() = " + user.getGrade());
+        }
+    }
 
 }

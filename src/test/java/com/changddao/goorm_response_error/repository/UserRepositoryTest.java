@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -75,6 +76,34 @@ class UserRepositoryTest {
         //that
         User changeUser = userRepository.findById(user1.getId()).get();
         assertThat(changeUser.getGrade()).isEqualTo(1);
+    }
+
+    @Test
+    void 회원_전체조회(){
+    //given
+        User user1 = new User("jina", 3);
+        User user2 = new User("changho", 4);
+        userRepository.save(user1);
+        userRepository.save(user2);
+    //when
+        List<User> users = userRepository.findAll();
+        //that
+        assertThat(users.size()).isEqualTo(2);
+    }
+    @Test
+    void 학점이같은User(){
+    //given
+        User user1 = new User("jina", 3);
+        User user2 = new User("changho", 4);
+        User user3 = new User("파이리", 3);
+        User user4 = new User("꼬부기", 4);
+    //when
+        List<User> users = userRepository.getUsersEqualGrade(3);
+        //that
+        for (User user : users) {
+            System.out.print("user.getUsername() = " + user.getUsername()+", ");
+            System.out.println("user.getGrade() = " + user.getGrade());
+        }
     }
 
 }
